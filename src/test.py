@@ -1,6 +1,6 @@
 import speech_recognition as sr
 
-audio = "Prueba.wav"
+audio = "Prueba2.wav"
 audio2 = "Test_en.wav"
 
 re = sr.Recognizer()
@@ -17,4 +17,4 @@ with sr.AudioFile(audio2) as source:
     texto=re.recognize_google(info_audio)
     print("El texto reconocido es:\n")
     print(texto)
-    print("\nAhora en Ingles:\n")
+    print("\nSaliendo:\n")
