@@ -2,35 +2,74 @@
 
 # import the necessary packages
 import rospy
+from wit import Wit
+from unidecode import unidecode
+
+import sounddevice as sd
+from scipy.io.wavfile import write
 
 # import the necessary msgs. Example with msg type String_Int_Arrays:
-from custom_msgs.msg import String_Int_Arrays
+from std_msgs.msg import Float32
+from std_msgs.msg import String
 
-class class_name():
-    """ Class class_name.
+class voice_recognitor():
+    """ Class voice_recognitor
 
-    Info about the class
+    This class allows to recognite the voice during an indicated time in seconds.
     """
 
     def __init__(self):
         """Class constructor
 
         It is the constructor of the class. It does:
+        -Subscribe to recognize_voice topic
+        -Publish the asr text
         """
 
         #Subscribe to ROS topics
-        self.name_subscriber = rospy.Subscriber("topic_sub", String_Int_Arrays, self.callback)
+        self.asr_sub = rospy.Subscriber("recognize_voice", Float32, self.callback)
 
         #Define the ROS publishers
-        self.name_publisher = rospy.Publisher("topic_pub", String_Int_Arrays, queue_size=0)
+        self.asr_pub = rospy.Publisher("asr_text", String, queue_size=0)
 
         #Define object as msg type
-        self.type_msg = String_Int_Arrays()
-        self.type_msg.data_int = [0,0,0]
-        self.type_msg.data_string = [""]
+        self.asr_msg = String()
+        self.asr_msg.data = ""
 
         print("[INFO] Node started")
 
+    def configuration(self):
+        """Configuration void.
+
+        In this void the token of the wit.ai client is defined.
+        And it is set the sample_rate of the text recorded.
+        """
+        token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
+        self.client = Wit(token)
+
+        self.sample_rate=44100
+
+
+    def recognize(self, duration):
+        """Void to recognize voice
+
+        First, the voice is recorded with the duration time set.
+        After that, the text is recognized and published.
+        """
+        myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
+        sd.wait()
+        write('output.wav', self.sample_rate, myrecording)
+
+        try:
+    		with open('output.wav', 'rf') as f:
+    			answ=client.speech(f, {'Content-Type': 'audio/wav'})
+    		text = unidecode(answ[u'text'])
+    	except:
+    		text=""
+        print(text)
+        self.asr_msg.data = text
+        #Publish msg
+        self.asr_pub.publish(self.asr_msg)
 
     def run_loop(self):
         """ Infinite loop.
@@ -39,7 +78,7 @@ class class_name():
         """
         while not rospy.is_shutdown():
             #functions to repeat until the node is closed
-            pass
+            rospy.spin()
 
     def stopping_node(self):
         """ROS closing node
@@ -50,10 +89,10 @@ class class_name():
     def callback(self, data):
         """ROS callback
 
-        This void is executed when a message is received"""
+        This void is executed when a message is received.
+        It simply calls the function to recognize giving the duration of the recording"""
+        recognize(data.data)
 
-        #Example to publish msg
-        self.name_publisher.publish(self.type_msg)
 
 
 if __name__=='__main__':
@@ -66,12 +105,12 @@ if __name__=='__main__':
 
     """
     try:
-        rospy.init_node('ROSnode_name')       # Init ROS node
+        rospy.init_node('asr_node')       # Init ROS node
 
-        class_object = class_name()
-        rospy.on_shutdown(class_object.stopping_node)   #When ROS is closed, this void is executed
+        asr_object = voice_recognitor()
+        rospy.on_shutdown(asr_object.stopping_node)   #When ROS is closed, this void is executed
 
-        class_object.run_loop()
+        asr_object.run_loop()
 
     except rospy.ROSInterruptException:
         pass
