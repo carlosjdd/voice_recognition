@@ -36,6 +36,8 @@ class voice_recognitor():
         self.asr_msg = String()
         self.asr_msg.data = ""
 
+        self.configuration()
+
         print("[INFO] Node started")
 
     def configuration(self):
@@ -91,7 +93,7 @@ class voice_recognitor():
 
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
-        recognize(data.data)
+        self.recognize(data.data)
 
 
 
