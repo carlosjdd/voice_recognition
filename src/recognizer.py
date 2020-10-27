@@ -94,7 +94,7 @@ class voice_recognitor():
 
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
-        x = threading.Thread(target=self.recognize, args=(data.data))
+        x = threading.Thread(target=self.recognize, args=(data.data,))
         x.start()
 
 
