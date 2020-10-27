@@ -7,7 +7,7 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 
 fs=44100 #sample rate
-seconds=3
+seconds=1
 
 
 token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
@@ -54,4 +54,3 @@ while True:
 
 	#print ("\nModo interactivo")
 	#client.interactive()
-
