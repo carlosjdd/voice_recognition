@@ -46,7 +46,7 @@ class listener():
         while not rospy.is_shutdown():
             #functions to repeat until the node is closed
             self.listener_pub.publish(self.listen)
-            time.sleep(self.duration*0.8)
+            time.sleep(self.duration*0.5)
 
     def stopping_node(self):
         """ROS closing node
