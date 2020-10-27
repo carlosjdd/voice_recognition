@@ -31,7 +31,7 @@ class listener():
         self.duration = 3.0
 
         #Define object as msg type
-        self.listen = String_Int_Arrays()
+        self.listen = Float32()
         self.listen.data = self.duration
 
         print("[INFO] Node started")
