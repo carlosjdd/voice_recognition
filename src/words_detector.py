@@ -4,6 +4,8 @@
 import rospy
 import rospkg
 
+import csv
+
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import String
 from custom_msgs.msg import String_Int
@@ -46,6 +48,8 @@ class detector():
         path_people = rospack.get_path(pkg_name) + "/data/database1_people.csv"
         path_insults = rospack.get_path(pkg_name) + "/data/database2_insults.csv"
 
+        self.word = [[],[]]
+
         with open(path_people) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
@@ -57,7 +61,7 @@ class detector():
 
 
     def detect_word(self, phrase):
-        for i in self.word:
+        for i in range(len(self.word)):
             for j in self.word[i]:
                 if phrase.find(j) >= 0:
                     self.word_detected.data_int = i
