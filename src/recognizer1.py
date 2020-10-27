@@ -12,7 +12,7 @@ from scipy.io.wavfile import write
 from std_msgs.msg import Float32
 from std_msgs.msg import String
 
-class voice_recognitor():
+class voice_recognitor1():
     """ Class voice_recognitor
 
     This class allows to recognite the voice during an indicated time in seconds.
@@ -27,7 +27,7 @@ class voice_recognitor():
         """
 
         #Subscribe to ROS topics
-        self.asr_sub = rospy.Subscriber("recognize_voice", Float32, self.callback)
+        self.asr_sub = rospy.Subscriber("recognize_voice1", Float32, self.callback)
 
         #Define the ROS publishers
         self.asr_pub = rospy.Publisher("asr_text", String, queue_size=0)
@@ -37,8 +37,6 @@ class voice_recognitor():
         self.asr_msg.data = ""
 
         self.duration=3.0
-
-        self.next_thread=1
 
         self.configuration()
 
@@ -56,14 +54,13 @@ class voice_recognitor():
         self.sample_rate=44100
 
 
-    def recognize1(self):
+    def recognize(self,duration):
         """Void to recognize voice
 
         First, the voice is recorded with the duration time set.
         After that, the text is recognized and published.
         """
-        self.next_thread=2
-        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
+        myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
         sd.wait()
         write('output1.wav', self.sample_rate, myrecording)
 
@@ -77,52 +74,6 @@ class voice_recognitor():
         self.asr_msg.data = text
         #Publish msg
         self.asr_pub.publish(self.asr_msg)
-
-    def recognize2(self):
-        """Void to recognize voice
-
-        First, the voice is recorded with the duration time set.
-        After that, the text is recognized and published.
-        """
-        self.next_thread=3
-        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
-        sd.wait()
-        write('output2.wav', self.sample_rate, myrecording)
-
-        try:
-    		with open('output2.wav', 'rf') as f:
-    			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
-    		text = unidecode(answ[u'text'])
-    	except:
-    		text=""
-        print(text)
-        self.asr_msg.data = text
-        #Publish msg
-        self.asr_pub.publish(self.asr_msg)
-
-    def recognize3(self):
-        """Void to recognize voice
-
-        First, the voice is recorded with the duration time set.
-        After that, the text is recognized and published.
-        """
-        self.next_thread=1
-        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
-        sd.wait()
-        write('output3.wav', self.sample_rate, myrecording)
-
-        try:
-    		with open('output3.wav', 'rf') as f:
-    			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
-    		text = unidecode(answ[u'text'])
-    	except:
-    		text=""
-        print(text)
-        self.asr_msg.data = text
-        #Publish msg
-        self.asr_pub.publish(self.asr_msg)
-
-
 
     def run_loop(self):
         """ Infinite loop.
@@ -144,13 +95,7 @@ class voice_recognitor():
 
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
-        self.duration=data.data
-        if self.next_thread == 1:
-            self.recognize1()
-        elif self.next_thread == 2:
-            self.recognize2()
-        else:
-            self.recognize3()
+        self.recognize(data.data)
 
 
 
@@ -166,7 +111,7 @@ if __name__=='__main__':
     try:
         rospy.init_node('asr_node')       # Init ROS node
 
-        asr_object = voice_recognitor()
+        asr_object = voice_recognitor1()
         rospy.on_shutdown(asr_object.stopping_node)   #When ROS is closed, this void is executed
 
         asr_object.run_loop()

@@ -25,7 +25,9 @@ class listener():
         self.listener_sub = rospy.Subscriber("listening_duration", Float32, self.callback)
 
         #Define the ROS publishers
-        self.listener_pub = rospy.Publisher("recognize_voice", Float32, queue_size=0)
+        self.listener1_pub = rospy.Publisher("recognize_voice1", Float32, queue_size=0)
+        self.listener2_pub = rospy.Publisher("recognize_voice2", Float32, queue_size=0)
+        self.listener3_pub = rospy.Publisher("recognize_voice3", Float32, queue_size=0)
 
         #Define the time in seconds to listen every phrase
         self.duration = 5.0
@@ -45,8 +47,13 @@ class listener():
         """
         while not rospy.is_shutdown():
             #functions to repeat until the node is closed
-            self.listener_pub.publish(self.listen)
-            time.sleep(self.duration*0.5)
+            self.listener1_pub.publish(self.listen)
+            time.sleep(self.duration*0.8)
+            self.listener2_pub.publish(self.listen)
+            time.sleep(self.duration*0.8)
+            self.listener3_pub.publish(self.listen)
+            time.sleep(self.duration*0.8)
+
 
     def stopping_node(self):
         """ROS closing node
