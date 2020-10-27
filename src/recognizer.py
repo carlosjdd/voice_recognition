@@ -3,7 +3,7 @@
 # import the necessary packages
 import rospy
 from wit import Wit
-import threading
+import thread
 
 from unidecode import unidecode
 import sounddevice as sd
@@ -37,6 +37,8 @@ class voice_recognitor():
         self.asr_msg = String()
         self.asr_msg.data = ""
 
+        self.duration=3.0
+
         self.configuration()
 
         print("[INFO] Node started")
@@ -53,13 +55,13 @@ class voice_recognitor():
         self.sample_rate=44100
 
 
-    def recognize(self, duration):
+    def recognize(self):
         """Void to recognize voice
 
         First, the voice is recorded with the duration time set.
         After that, the text is recognized and published.
         """
-        myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
+        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
         sd.wait()
         write('output.wav', self.sample_rate, myrecording)
 
@@ -94,8 +96,8 @@ class voice_recognitor():
 
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
-        x = threading.Thread(target=self.recognize, args=(data.data,))
-        x.start()
+        self.duration=data.data
+        thread.start_new_thread(self.recognize, ())
 
 
 
