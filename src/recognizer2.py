@@ -66,7 +66,7 @@ class voice_recognitor2():
 
         try:
     		with open('output2.wav', 'rf') as f:
-    			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
+                answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
     		text = unidecode(answ[u'text'])
     	except:
     		text=""
