@@ -109,7 +109,7 @@ if __name__=='__main__':
 
     """
     try:
-        rospy.init_node('asr_node')       # Init ROS node
+        rospy.init_node('asr_node3')       # Init ROS node
 
         asr_object = voice_recognitor3()
         rospy.on_shutdown(asr_object.stopping_node)   #When ROS is closed, this void is executed
