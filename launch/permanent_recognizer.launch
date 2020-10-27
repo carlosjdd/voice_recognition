@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node pkg="voice_recognition" name="recognizer1" type="recognizer1.py" />
+	<node pkg="voice_recognition" name="recognizer2" type="recognizer2.py" />
+	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" />
+	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" />
+	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" />
+</launch>
