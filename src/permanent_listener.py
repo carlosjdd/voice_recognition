@@ -41,6 +41,7 @@ class listener():
         """ Infinite loop.
 
         When ROS is closed, it exits.
+        It sends a message every "self.duration" time
         """
         while not rospy.is_shutdown():
             #functions to repeat until the node is closed
@@ -71,12 +72,12 @@ if __name__=='__main__':
 
     """
     try:
-        rospy.init_node('ROSnode_name')       # Init ROS node
+        rospy.init_node('listener_node')       # Init ROS node
 
-        class_object = class_name()
-        rospy.on_shutdown(class_object.stopping_node)   #When ROS is closed, this void is executed
+        list_object = listener()
+        rospy.on_shutdown(list_object.stopping_node)   #When ROS is closed, this void is executed
 
-        class_object.run_loop()
+        list_object.run_loop()
 
     except rospy.ROSInterruptException:
         pass
