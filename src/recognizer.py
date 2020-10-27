@@ -38,6 +38,8 @@ class voice_recognitor():
 
         self.duration=3.0
 
+        self.next_thread=1
+
         self.configuration()
 
         print("[INFO] Node started")
@@ -54,18 +56,19 @@ class voice_recognitor():
         self.sample_rate=44100
 
 
-    def recognize(self):
+    def recognize1(self):
         """Void to recognize voice
 
         First, the voice is recorded with the duration time set.
         After that, the text is recognized and published.
         """
+        self.next_thread=2
         myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
         sd.wait()
-        write('output.wav', self.sample_rate, myrecording)
+        write('output1.wav', self.sample_rate, myrecording)
 
         try:
-    		with open('output.wav', 'rf') as f:
+    		with open('output1.wav', 'rf') as f:
     			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
     		text = unidecode(answ[u'text'])
     	except:
@@ -74,6 +77,52 @@ class voice_recognitor():
         self.asr_msg.data = text
         #Publish msg
         self.asr_pub.publish(self.asr_msg)
+
+    def recognize2(self):
+        """Void to recognize voice
+
+        First, the voice is recorded with the duration time set.
+        After that, the text is recognized and published.
+        """
+        self.next_thread=3
+        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
+        sd.wait()
+        write('output2.wav', self.sample_rate, myrecording)
+
+        try:
+    		with open('output2.wav', 'rf') as f:
+    			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
+    		text = unidecode(answ[u'text'])
+    	except:
+    		text=""
+        print(text)
+        self.asr_msg.data = text
+        #Publish msg
+        self.asr_pub.publish(self.asr_msg)
+
+    def recognize3(self):
+        """Void to recognize voice
+
+        First, the voice is recorded with the duration time set.
+        After that, the text is recognized and published.
+        """
+        self.next_thread=1
+        myrecording = sd.rec(int(self.duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
+        sd.wait()
+        write('output3.wav', self.sample_rate, myrecording)
+
+        try:
+    		with open('output3.wav', 'rf') as f:
+    			answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
+    		text = unidecode(answ[u'text'])
+    	except:
+    		text=""
+        print(text)
+        self.asr_msg.data = text
+        #Publish msg
+        self.asr_pub.publish(self.asr_msg)
+
+
 
     def run_loop(self):
         """ Infinite loop.
@@ -96,7 +145,12 @@ class voice_recognitor():
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
         self.duration=data.data
-        self.recognize()
+        if self.next_thread == 1:
+            self.recognize1()
+        elif self.next_thread == 2:
+            self.recognize2()
+        else:
+            self.recognize3()
 
 
 
