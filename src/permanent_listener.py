@@ -28,7 +28,7 @@ class listener():
         self.listener_pub = rospy.Publisher("recognize_voice", Float32, queue_size=0)
 
         #Define the time in seconds to listen every phrase
-        self.duration = 3.0
+        self.duration = 5.0
 
         #Define object as msg type
         self.listen = Float32()

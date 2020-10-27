@@ -3,7 +3,6 @@
 # import the necessary packages
 import rospy
 from wit import Wit
-import threading
 
 from unidecode import unidecode
 import sounddevice as sd
@@ -97,7 +96,7 @@ class voice_recognitor():
         This void is executed when a message is received.
         It simply calls the function to recognize giving the duration of the recording"""
         self.duration=data.data
-        threading.Thread(target=self.recognize).start()
+        self.recognize()
 
 
 
