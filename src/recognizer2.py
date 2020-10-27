@@ -65,11 +65,11 @@ class voice_recognitor2():
         write('output2.wav', self.sample_rate, myrecording)
 
         try:
-    		with open('output2.wav', 'rf') as f:
+            with open('output2.wav', 'rf') as f:
                 answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
-    		text = unidecode(answ[u'text'])
-    	except:
-    		text=""
+            text = unidecode(answ[u'text'])
+        except:
+            text=""
         print(text)
         self.asr_msg.data = text
         #Publish msg
