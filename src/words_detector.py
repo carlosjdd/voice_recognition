@@ -64,11 +64,8 @@ class detector():
         for i in range(len(self.word)):
             for j in self.word[i]:
                 if phrase.find(j) >= 0:
-                    name= ""
-                    for w in j:
-                        name=name+w
                     self.word_detected.data_int = i
-                    self.word_detected.data_string = name
+                    self.word_detected.data_string = j
                     self.detector_pub.publish(self.word_detected)
                     print(j)
 
