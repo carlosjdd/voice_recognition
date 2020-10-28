@@ -67,6 +67,7 @@ class detector():
                     self.word_detected.data_int = i
                     self.word_detected.data_string = j
                     self.detector_pub.publish(self.word_detected)
+                    print(j)
 
     def run_loop(self):
         """ Infinite loop.
