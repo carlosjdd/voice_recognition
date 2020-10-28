@@ -65,7 +65,7 @@ class detector():
             for j in self.word[i]:
                 if phrase.find(j) >= 0:
                     name= ""
-                    for w in len(j):
+                    for w in j:
                         name=name+w
                     self.word_detected.data_int = i
                     self.word_detected.data_string = name
