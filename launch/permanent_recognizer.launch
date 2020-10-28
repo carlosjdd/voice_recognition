@@ -6,4 +6,5 @@
 	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" />
 	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" />
 	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" />
+	<node pkg="voice_recognition" name="detector" type="words_detector.py" output="screen"/>
 </launch>
