@@ -65,7 +65,7 @@ class detector():
             for j in self.word[i]:
                 if phrase.find(j) >= 0:
                     self.word_detected.data_int = i
-                    self.word_detected.data_string = j
+                    self.word_detected.data_string = str(j)
                     self.detector_pub.publish(self.word_detected)
                     print(j)
 
