@@ -58,9 +58,7 @@ class listener():
                 self.listener2_pub.publish(self.listen)
                 time.sleep(self.duration*0.8)
                 self.listener3_pub.publish(self.listen)
-                time.sleep(self.duration*0.8)
-            else:
-                rospy.spin()
+            time.sleep(self.duration*0.8)
 
 
     def stopping_node(self):
