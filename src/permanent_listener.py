@@ -6,6 +6,7 @@ import time
 
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import Float32
+from std_msgs.msg import Bool
 
 class listener():
     """ Class listener.
@@ -23,11 +24,15 @@ class listener():
 
         #Subscribe to ROS topics
         self.listener_sub = rospy.Subscriber("listening_duration", Float32, self.callback)
+        self.stop_sub = rospy.Subscriber("stop_permanent_asr", Bool, self.cb_stop)
 
         #Define the ROS publishers
         self.listener1_pub = rospy.Publisher("recognize_voice1", Float32, queue_size=0)
         self.listener2_pub = rospy.Publisher("recognize_voice2", Float32, queue_size=0)
         self.listener3_pub = rospy.Publisher("recognize_voice3", Float32, queue_size=0)
+
+        #Define whether it is listening permanently or not.
+        self.stop_asr = False
 
         #Define the time in seconds to listen every phrase
         self.duration = 2.0
@@ -47,12 +52,15 @@ class listener():
         """
         while not rospy.is_shutdown():
             #functions to repeat until the node is closed
-            self.listener1_pub.publish(self.listen)
-            time.sleep(self.duration*0.8)
-            self.listener2_pub.publish(self.listen)
-            time.sleep(self.duration*0.8)
-            self.listener3_pub.publish(self.listen)
-            time.sleep(self.duration*0.8)
+            if self.stop_asr == False:
+                self.listener1_pub.publish(self.listen)
+                time.sleep(self.duration*0.8)
+                self.listener2_pub.publish(self.listen)
+                time.sleep(self.duration*0.8)
+                self.listener3_pub.publish(self.listen)
+                time.sleep(self.duration*0.8)
+            else:
+                rospy.spin()
 
 
     def stopping_node(self):
@@ -67,6 +75,11 @@ class listener():
         This void is executed when a message is received"""
         self.duration = data.data
         self.listen.data = self.duration
+
+    def cb_stop(self, data):
+        """ROS callback to stop permanently listening
+        """
+        self.stop_asr=data.data
 
 
 if __name__=='__main__':
