@@ -31,7 +31,7 @@ class voice_recognitor():
         self.asr_sub = rospy.Subscriber("recognize_voice", Float32, self.callback)
 
         #Define the ROS publishers
-        self.asr_pub = rospy.Publisher("asr_text", String, queue_size=0)
+        self.asr_pub = rospy.Publisher("asr_full_text", String, queue_size=0)
         self.listening_pub = rospy.Publisher("listening", Bool, queue_size=0)
 
         #Define object as msg type
