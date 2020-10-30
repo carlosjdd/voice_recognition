@@ -54,20 +54,20 @@ class detector():
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word.append(row[0])					            # Save the path of every SVG file into the array
-                self.frag1.append(row[1])
-                self.frag2.append(row[2])
+                self.frag1.append(int(row[1]))
+                self.frag2.append(int(row[2]))
 
     def detect_word(self, phrase):
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
                 self.fragance_msg.data[0] = self.frag1[j]
                 self.fragance_msg.data[1] = self.frag2[j]
+                print (self.word[j])
             else:
                 self.fragance_msg.data[0] = 0
                 self.fragance_msg.data[1] = 0
 
-            self.fragance_pub.publish(self.fragance_msg)
-            print(j)
+        self.fragance_pub.publish(self.fragance_msg)
 
     def run_loop(self):
         """ Infinite loop.
