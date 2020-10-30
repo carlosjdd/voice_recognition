@@ -58,7 +58,7 @@ class detector():
                 self.frag2.append(row[2])
 
     def detect_word(self, phrase):
-        for j in ranges(len(self.word)):
+        for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
                 self.fragance_msg.data[0] = self.frag1[j]
                 self.fragance_msg.data[1] = self.frag2[j]
