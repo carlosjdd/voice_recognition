@@ -60,8 +60,8 @@ class detector():
     def detect_word(self, phrase):
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
-                self.fragance_msg.data[0] = int(self.frag1[j]))
-                self.fragance_msg.data[1] = int(self.frag2[j]))
+                self.fragance_msg.data[0] = int(self.frag1[j])
+                self.fragance_msg.data[1] = int(self.frag2[j])
                 print (self.word[j])
             else:
                 self.fragance_msg.data[0] = 0
