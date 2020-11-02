@@ -88,7 +88,7 @@ class detector():
         """ROS callback
 
         This void is executed when a message is received"""
-
+        print (data.data)
         self.detect_word(data.data)
 
 
