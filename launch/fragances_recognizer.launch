@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
 <launch>
-	<node pkg="voice_recognition" name="recognizer" type="recognizer.py" />
-	<node pkg="voice_recognition" name="recognizer1" type="recognizer1.py" />
-	<node pkg="voice_recognition" name="recognizer2" type="recognizer2.py" />
-	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" />
-	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" />
-	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" />
+	<node pkg="voice_recognition" name="recognizer" type="recognizer.py" output="screen"/>
+	<node pkg="voice_recognition" name="recognizer1" type="recognizer1.py" output="screen"/>
+	<node pkg="voice_recognition" name="recognizer2" type="recognizer2.py" output="screen"/>
+	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" output="screen"/>
+	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" output="screen"/>
+	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" output="screen"/>
 	<node pkg="voice_recognition" name="detector" type="words_detector.py" output="screen" />
 	<node pkg="voice_recognition" name="fragances" type="fragances.py" output="screen" />
 </launch>
