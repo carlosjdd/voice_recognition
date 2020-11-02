@@ -30,6 +30,7 @@ class listener():
         self.listener1_pub = rospy.Publisher("recognize_voice1", Float32, queue_size=0)
         self.listener2_pub = rospy.Publisher("recognize_voice2", Float32, queue_size=0)
         self.listener3_pub = rospy.Publisher("recognize_voice3", Float32, queue_size=0)
+        self.listener4_pub = rospy.Publisher("recognize_voice4", Float32, queue_size=0)
 
         #Define whether it is listening permanently or not.
         self.stop_asr = False
@@ -58,6 +59,8 @@ class listener():
                 self.listener2_pub.publish(self.listen)
                 time.sleep(self.duration*0.8)
                 self.listener3_pub.publish(self.listen)
+                time.sleep(self.duration*0.8)
+                self.listener4_pub.publish(self.listen)
             time.sleep(self.duration*0.8)
 
 
