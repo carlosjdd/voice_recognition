@@ -64,7 +64,7 @@ class detector():
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
                 self.fragance_msg.data.append(int(self.frag1[j]))
-                if self.frag2[j] != "":
+                if int(self.frag2[j]) != 0:
                     self.fragance_msg.data.append(int(self.frag2[j]))
                 print (self.word[j])
 
