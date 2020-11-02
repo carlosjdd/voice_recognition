@@ -58,17 +58,15 @@ class detector():
                 self.frag2.append(row[2])
 
     def detect_word(self, phrase):
-        empty = True
+
+        self.fragance_msg.data[0] = 0
+        self.fragance_msg.data[1] = 0
+
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
                 self.fragance_msg.data[0] = int(self.frag1[j])
                 self.fragance_msg.data[1] = int(self.frag2[j])
                 print (self.word[j])
-                empty = False
-
-        if empty == True:
-            self.fragance_msg.data[0] = 0
-            self.fragance_msg.data[1] = 0
 
         self.fragance_pub.publish(self.fragance_msg)
 
@@ -91,7 +89,6 @@ class detector():
         """ROS callback
 
         This void is executed when a message is received"""
-        print ("Lo que ha reconocido aqui es:" + data.data)
         self.detect_word(data.data)
 
 
