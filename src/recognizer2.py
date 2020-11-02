@@ -71,7 +71,7 @@ class voice_recognitor2():
         except:
             text=""
         print(text)
-        self.asr_msg.data = text
+        self.asr_msg.data = "b" + text
         #Publish msg
         self.asr_pub.publish(self.asr_msg)
 
