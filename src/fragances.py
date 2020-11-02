@@ -58,14 +58,17 @@ class detector():
                 self.frag2.append(row[2])
 
     def detect_word(self, phrase):
+        empty = True
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
                 self.fragance_msg.data[0] = int(self.frag1[j])
                 self.fragance_msg.data[1] = int(self.frag2[j])
                 print (self.word[j])
-            else:
-                self.fragance_msg.data[0] = 0
-                self.fragance_msg.data[1] = 0
+                empty = False
+
+        if empty == True:
+            self.fragance_msg.data[0] = 0
+            self.fragance_msg.data[1] = 0
 
         self.fragance_pub.publish(self.fragance_msg)
 
