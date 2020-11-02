@@ -60,12 +60,19 @@ class detector():
     def detect_word(self, phrase):
 
         self.fragance_msg.data = []
+        check = False
 
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
-                self.fragance_msg.data.append(int(self.frag1[j]))
+                if int(self.frag1[j]) in self.fragance_msg.data:
+                    pass
+                else:
+                    self.fragance_msg.data.append(int(self.frag1[j]))
                 if int(self.frag2[j]) != 0:
-                    self.fragance_msg.data.append(int(self.frag2[j]))
+                    if int(self.frag2[j]) in self.fragance_msg.data:
+                        pass
+                    else:
+                        self.fragance_msg.data.append(int(self.frag2[j]))
                 print (self.word[j])
 
         self.fragance_pub.publish(self.fragance_msg)
