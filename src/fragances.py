@@ -35,7 +35,7 @@ class detector():
 
         #Define object as msg type
         self.fragance_msg = UInt8MultiArray()
-        self.fragance_msg.data = [0,0]
+        self.fragance_msg.data = []
 
         self.databases()
 
@@ -59,13 +59,13 @@ class detector():
 
     def detect_word(self, phrase):
 
-        self.fragance_msg.data[0] = 0
-        self.fragance_msg.data[1] = 0
+        self.fragance_msg.data = []
 
         for j in range(len(self.word)):
             if phrase.find(self.word[j]) >= 0:
-                self.fragance_msg.data[0] = int(self.frag1[j])
-                self.fragance_msg.data[1] = int(self.frag2[j])
+                self.fragance_msg.data.append(int(self.frag1[j]))
+                if self.frag2[j] != "":
+                    self.fragance_msg.data.append(int(self.frag2[j]))
                 print (self.word[j])
 
         self.fragance_pub.publish(self.fragance_msg)
@@ -90,7 +90,6 @@ class detector():
 
         This void is executed when a message is received"""
         self.detect_word(data.data)
-
 
 
 if __name__=='__main__':
