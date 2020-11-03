@@ -7,7 +7,7 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 
 fs=44100 #sample rate
-seconds=1
+seconds=5
 
 
 token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
