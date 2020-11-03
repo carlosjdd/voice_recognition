@@ -8,7 +8,7 @@ import csv
 
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import String
-from std_msgs.msg import UInt8MultiArray
+from std_msgs.msg import UInt16MultiArray
 
 
 class detector():
@@ -31,10 +31,10 @@ class detector():
         self.detector_sub = rospy.Subscriber("asr_full_text", String, self.callback)
 
         #Define the ROS publishers
-        self.fragance_pub = rospy.Publisher("fragances", UInt8MultiArray, queue_size=0)
+        self.fragance_pub = rospy.Publisher("fragances", UInt16MultiArray, queue_size=0)
 
         #Define object as msg type
-        self.fragance_msg = UInt8MultiArray()
+        self.fragance_msg = UInt16MultiArray()
         self.fragance_msg.data = []
 
         self.databases()
