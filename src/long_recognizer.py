@@ -83,6 +83,7 @@ class detector():
                     self.function_msg.data = int(self.modes[j])
             if detected == False:
                 self.function_msg.data = 2                          # If modes not found, lets ask Alexa
+            print(self.function_msg.data)
             self.function_pub.publish(self.function_msg)
 
         elif self.mode == 1:
