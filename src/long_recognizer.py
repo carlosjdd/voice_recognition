@@ -100,9 +100,9 @@ class detector():
                             self.fragance_msg.data.append(int(self.frag2[j]))
                     print (self.word[j])
             self.fragance_pub.publish(self.fragance_msg)
-            
-        elif self.mode == 2:
-            continue
+
+    #    elif self.mode == 2:
+    #        continue
 
 
     def run_loop(self):
