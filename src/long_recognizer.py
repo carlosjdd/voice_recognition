@@ -35,12 +35,17 @@ class detector():
         #Define the ROS publishers
         self.fragance_pub = rospy.Publisher("fragances", UInt16MultiArray, queue_size=0)
         self.function_pub = rospy.Publisher("function", UInt8, queue_size=0)
+        self.speak_pub = rospy.Publisher("tts_info", String_Int_Arrays, queue_size=0)
 
         #Define object as msg type
         self.fragance_msg = UInt16MultiArray()
         self.fragance_msg.data = []
 
         self.function_msg = UInt8()
+
+        self.speak_msg = String_Int_Arrays()
+        self.speak_msg.data_int = [14,0,0]
+        self.speak_msg.data_string = ""
 
         self.mode = 2
 
@@ -80,8 +85,8 @@ class detector():
             for j in range(len(self.options)):
                 if phrase.find(self.options[j]) >= 0:
                     self.function_msg.data = int(self.modes[j])
-                    print(self.options[j])
-            print(self.function_msg.data)
+            if self.function_msg.data == 0:
+                self.mode = 2
             self.function_pub.publish(self.function_msg)
 
         elif self.mode == 1:
@@ -100,8 +105,9 @@ class detector():
                     print (self.word[j])
             self.fragance_pub.publish(self.fragance_msg)
 
-    #    elif self.mode == 2:
-    #        continue
+        elif self.mode == 2:
+            self.speak_msg.data_string = phrase
+            self.speak_pub.publish(self.speak_msg)
 
 
     def run_loop(self):
