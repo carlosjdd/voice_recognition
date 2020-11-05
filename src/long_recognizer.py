@@ -10,6 +10,7 @@ import csv
 from std_msgs.msg import String
 from std_msgs.msg import UInt16MultiArray
 from std_msgs.msg import UInt8
+from custom_msgs.msg import String_Int_Arrays
 
 
 class detector():
