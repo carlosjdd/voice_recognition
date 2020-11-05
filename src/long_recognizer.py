@@ -76,13 +76,11 @@ class detector():
     def detect_word(self, phrase):
 
         if self.mode == 0:
-            detected = False
+            self.function_msg.data = 0
             for j in range(len(self.options)):
                 if phrase.find(self.options[j]) >= 0:
-                    detected = True
                     self.function_msg.data = int(self.modes[j])
-            if detected == False:
-                self.function_msg.data = 2                          # If modes not found, lets ask Alexa
+                    print(self.options[j])
             print(self.function_msg.data)
             self.function_pub.publish(self.function_msg)
 
