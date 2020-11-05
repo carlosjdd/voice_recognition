@@ -48,9 +48,8 @@ class detector():
         path_people = rospack.get_path(pkg_name) + "/data/database1_people.csv"
         path_insults = rospack.get_path(pkg_name) + "/data/database2_insults.csv"
         path_name = rospack.get_path(pkg_name) + "/data/database3_robot_name.csv"
-        path_good_people = rospack.get_path(pkg_name) + "/data/database4_good_people.csv"
 
-        self.word = [[],[],[],[]]
+        self.word = [[],[],[]]
 
         with open(path_people) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
@@ -65,11 +64,6 @@ class detector():
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[2].append(row[0])					            # Save the path of every SVG file into the array
-
-        with open(path_good_people) as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
-            for row in csv_reader:								        # Go through every row in the csv file
-                self.word[3].append(row[0])					            # Save the path of every SVG file into the array
 
 
     def detect_word(self, phrase):
