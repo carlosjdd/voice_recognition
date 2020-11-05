@@ -48,7 +48,7 @@ class detector():
         self.speak_msg.data_int = [14,0,0]
         self.speak_msg.data_string = ""
 
-        self.mode = 2
+        self.mode = 0
 
         self.databases()
 
@@ -87,7 +87,8 @@ class detector():
                 if phrase.find(self.options[j]) >= 0:
                     self.function_msg.data = int(self.modes[j])
             if self.function_msg.data == 0:
-                self.mode = 2
+                self.speak_msg.data_string = phrase
+                self.speak_pub.publish(self.speak_msg)
             self.function_pub.publish(self.function_msg)
 
         elif self.mode == 1:
@@ -106,9 +107,6 @@ class detector():
                     print (self.word[j])
             self.fragance_pub.publish(self.fragance_msg)
 
-        elif self.mode == 2:
-            self.speak_msg.data_string = phrase
-            self.speak_pub.publish(self.speak_msg)
 
 
     def run_loop(self):
