@@ -67,7 +67,7 @@ class detector():
                 self.frag1.append(row[1])
                 self.frag2.append(row[2])
 
-        with open(path_fragances) as csvfile:
+        with open(path_options) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.options.append(row[0])					            # Save the path of every SVG file into the array
