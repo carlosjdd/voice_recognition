@@ -11,6 +11,7 @@ from std_msgs.msg import String
 from std_msgs.msg import UInt16MultiArray
 from std_msgs.msg import UInt8
 from custom_msgs.msg import String_Int_Arrays
+from std_msgs.msg import Float32MultiArray
 
 
 class detector():
@@ -37,6 +38,7 @@ class detector():
         self.fragance_pub = rospy.Publisher("fragances", UInt16MultiArray, queue_size=0)
         self.function_pub = rospy.Publisher("function", UInt8, queue_size=0)
         self.speak_pub = rospy.Publisher("tts_info", String_Int_Arrays, queue_size=0)
+        self.look_pub = rospy.Publisher("look", Float32MultiArray, queue_size=0)
 
         #Define object as msg type
         self.fragance_msg = UInt16MultiArray()
@@ -47,6 +49,9 @@ class detector():
         self.speak_msg = String_Int_Arrays()
         self.speak_msg.data_int = [15,0,0]      #Prepared to ask alexa whenn does not know
         self.speak_msg.data_string = ""
+
+        self.look_msg = Float32MultiArray()
+        self.look_msg.data = [2.0, 10.0, 0.0, 0.0]      #10 is the time in seconds looking to Alexa
 
         self.mode = 0
 
@@ -89,6 +94,7 @@ class detector():
             if self.function_msg.data == 0:                             # Si no sabe que hacer, le preguntara lo mismo a Alexa
                 self.speak_msg.data_string = phrase
                 self.speak_pub.publish(self.speak_msg)
+                self.look_pub.publish(self.look_msg)
             self.function_pub.publish(self.function_msg)
 
         elif self.mode == 1:
