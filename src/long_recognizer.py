@@ -86,7 +86,7 @@ class detector():
             for j in range(len(self.options)):
                 if phrase.find(self.options[j]) >= 0:
                     self.function_msg.data = int(self.modes[j])
-            if self.function_msg.data == 0:
+            if self.function_msg.data == 0:                             # Si no sabe que hacer, le preguntara lo mismo a Alexa
                 self.speak_msg.data_string = phrase
                 self.speak_pub.publish(self.speak_msg)
             self.function_pub.publish(self.function_msg)
