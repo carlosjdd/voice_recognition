@@ -45,7 +45,7 @@ class detector():
         self.function_msg = UInt8()
 
         self.speak_msg = String_Int_Arrays()
-        self.speak_msg.data_int = [14,0,0]
+        self.speak_msg.data_int = [15,0,0]      #Prepared to ask alexa whenn does not know
         self.speak_msg.data_string = ""
 
         self.mode = 0
