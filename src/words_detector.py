@@ -40,6 +40,8 @@ class detector():
 
         self.databases()
 
+        print(self.word)
+
         print("[INFO] Node started")
 
     def databases(self):
