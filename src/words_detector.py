@@ -40,8 +40,6 @@ class detector():
 
         self.databases()
 
-        print(self.word)
-
         print("[INFO] Node started")
 
     def databases(self):
@@ -77,6 +75,7 @@ class detector():
     def detect_word(self, phrase):
         for i in range(len(self.word)):
             for j in self.word[i]:
+                print (j)
                 if phrase.find(j) >= 0:
                     self.word_detected.data_int = i
                     self.word_detected.data_string = j
