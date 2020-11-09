@@ -92,9 +92,10 @@ class detector():
                 if phrase.find(self.options[j]) >= 0:
                     self.function_msg.data = int(self.modes[j])
             if self.function_msg.data == 0:                             # Si no sabe que hacer, le preguntara lo mismo a Alexa
-                self.speak_msg.data_string = phrase
-                self.speak_pub.publish(self.speak_msg)
-                self.look_pub.publish(self.look_msg)
+                if phrase != "" and phrase != " ":
+                    self.speak_msg.data_string = phrase
+                    self.speak_pub.publish(self.speak_msg)
+                    self.look_pub.publish(self.look_msg)
             self.function_pub.publish(self.function_msg)
 
         elif self.mode == 1:
