@@ -53,40 +53,44 @@ class detector():
 
         self.word = [[],[],[],[],[]]
 
-        with open(path_hello) as csvfile:
+        with open(path_name) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[0].append(row[0])					            # Save the path of every SVG file into the array
 
-        with open(path_insults) as csvfile:
+        with open(path_name) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[1].append(row[0])					            # Save the path of every SVG file into the array
 
-        with open(path_people) as csvfile:
+        with open(path_insults) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[2].append(row[0])					            # Save the path of every SVG file into the array
 
-        with open(path_police) as csvfile:
+        with open(path_people) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[3].append(row[0])					            # Save the path of every SVG file into the array
 
-        with open(path_name) as csvfile:
+        with open(path_police) as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=";")	            # Read the csv file
             for row in csv_reader:								        # Go through every row in the csv file
                 self.word[4].append(row[0])					            # Save the path of every SVG file into the array
 
 
     def detect_word(self, phrase):
+        robot_named = False
         for i in range(len(self.word)):
-            for j in self.word[i]:
-                if phrase.find(j) >= 0:
-                    self.word_detected.data_int = i
-                    self.word_detected.data_string = j
-                    self.detector_pub.publish(self.word_detected)
-                    print(j)
+            if robot_named == False:
+                for j in self.word[i]:
+                    if phrase.find(j) >= 0:
+                        self.word_detected.data_int = i
+                        self.word_detected.data_string = j
+                        self.detector_pub.publish(self.word_detected)
+                        if i == 0:
+                            robot_named = True
+                        print(j)
 
     def run_loop(self):
         """ Infinite loop.
