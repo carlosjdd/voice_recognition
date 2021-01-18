@@ -102,7 +102,7 @@ class detector():
                         self.detector_pub.publish(self.word_detected)
                         if i == 0:
                             robot_named = True
-                        print("[DETECTED]:" + j)
+                        print("[DETECTED]: " + j)
 
     def run_loop(self):
         """ Infinite loop.
@@ -124,7 +124,8 @@ class detector():
 
         This void is executed when a message is received"""
 
-#        print (data.data)
+        if data.data != "":
+            print (data.data)
         self.detect_word(data.data)
 
 
