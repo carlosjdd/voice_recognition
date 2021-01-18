@@ -7,6 +7,6 @@
 	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" respawn="true" />
 	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" respawn="true" />
 	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" />
-	<node pkg="voice_recognition" name="detector" type="words_detector.py" output="screen" launch-prefix="xterm -e gdb --args"/>
+	<node pkg="voice_recognition" name="detector" type="words_detector.py" output="screen" />
 	<node pkg="voice_recognition" name="long_time_words_detector" type="long_recognizer.py" output="screen" />
 </launch>

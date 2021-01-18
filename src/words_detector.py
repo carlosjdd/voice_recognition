@@ -124,7 +124,7 @@ class detector():
 
         This void is executed when a message is received"""
 
-        print (data.data)
+#        print (data.data)
         self.detect_word(data.data)
 
 
