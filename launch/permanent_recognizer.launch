@@ -2,7 +2,7 @@
 
 <launch>
 	<node pkg="voice_recognition" name="recognizer" type="recognizer.py" respawn="true" />
-	<node pkg="voice_recognition" name="recognizer1" type="recognizer1.py" respawn="true" output="screen"/>
+	<node pkg="voice_recognition" name="recognizer1" type="recognizer1_v2.py" respawn="true" output="screen"/>
 	<node pkg="voice_recognition" name="recognizer2" type="recognizer2.py" respawn="true" />
 	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" respawn="true" />
 	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" respawn="true" />
