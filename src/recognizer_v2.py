@@ -4,7 +4,7 @@
 import rospy
 import speech_recognition as sr
 
-#from unidecode import unidecode
+from unidecode import unidecode
 
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import Float32
@@ -71,7 +71,8 @@ class voice_recognitor():
             self.listening_pub.publish(self.listening_msg)
 
             try:
-                text = self.r.recognize_google(audio, language="es-ES")
+                answ = self.r.recognize_google(audio, language="es-ES")
+                text = unidecode(answ[u'text'])
             except:
                 text=""
 
