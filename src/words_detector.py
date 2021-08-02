@@ -38,6 +38,8 @@ class detector():
         self.word_detected.data_int = 0
         self.word_detected.data_string = [""]
 
+        self.last_detected = ""
+
         self.databases()
 
         print("[INFO] Node started")
@@ -93,16 +95,22 @@ class detector():
 
     def detect_word(self, phrase):
         robot_named = False
+        self.word_detected.data_string = ""
         for i in range(len(self.word)):
             if robot_named == False:
                 for j in self.word[i]:
                     if phrase.find(j) >= 0:
                         self.word_detected.data_int = i
                         self.word_detected.data_string = j
-                        self.detector_pub.publish(self.word_detected)
+                        if j != self.last_detected:
+                            self.detector_pub.publish(self.word_detected)
+                        self.last_detected = j
                         if i == 0:
                             robot_named = True
                         print("[DETECTED]: " + j)
+
+        if self.word_detected.data_string != "":
+            self.last_detected = ""
 
     def run_loop(self):
         """ Infinite loop.
