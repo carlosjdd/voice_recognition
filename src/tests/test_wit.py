@@ -6,7 +6,7 @@ from time import time
 import sounddevice as sd
 from scipy.io.wavfile import write
 
-fs=44100 #sample rate
+fs=16000 #sample rate
 seconds=5
 
 
@@ -21,7 +21,7 @@ while True:
 	myrecording = sd.rec(int(seconds*fs), samplerate=fs, channels=2)
 	sd.wait()
 	rec_time=time() - start_time
-	write('output.wav', fs, myrecording)
+	write('/home/pi/catkin_ws/src/voice_recognition/src/tests/output.wav', fs, myrecording)
 
 	#r=sr.Recognizer()
 	#with sr.Microphone() as source:
@@ -32,8 +32,8 @@ while True:
 	start_time=time()
 
 	try:
-		with open('output.wav', 'rf') as f:
-			answ=client.speech(f, {'Content-Type': 'audio/wav'})
+		with open('/home/pi/catkin_ws/src/voice_recognition/src/tests/output.wav', 'rb') as f:
+			answ=client.speech(f, {'Content-Type': 'audio/flac'})
 		texto = unidecode(answ[u'text'])
 	except:
 		texto=""

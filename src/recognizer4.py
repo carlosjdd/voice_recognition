@@ -51,7 +51,7 @@ class voice_recognitor4():
         token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
         self.client = Wit(token)
 
-        self.sample_rate=44100
+        self.sample_rate=16000
 
 
     def recognize(self,duration):
@@ -62,10 +62,10 @@ class voice_recognitor4():
         """
         myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
         sd.wait()
-        write('output4.wav', self.sample_rate, myrecording)
+        write('/home/pi/output4.wav', self.sample_rate, myrecording)
 
         try:
-            with open('output4.wav', 'rf') as f:
+            with open('/home/pi/output4.wav', 'rf') as f:
                 answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
             text = unidecode(answ[u'text'])
         except:

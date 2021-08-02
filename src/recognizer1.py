@@ -2,6 +2,7 @@
 
 # import the necessary packages
 import rospy
+import time
 from wit import Wit
 
 from unidecode import unidecode
@@ -51,7 +52,8 @@ class voice_recognitor1():
         token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
         self.client = Wit(token)
 
-        self.sample_rate=44100
+        #self.sample_rate=44100
+        self.sample_rate=16000
 
 
     def recognize(self,duration):
@@ -62,14 +64,23 @@ class voice_recognitor1():
         """
         myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
         sd.wait()
-        write('output1.wav', self.sample_rate, myrecording)
+        write('/home/pi/output1.wav', self.sample_rate, myrecording)
+
+        #time.sleep(1)
+
+        #with open('/home/pi/output1.wav', 'rf') as f:
+        #    answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
+        #print ('Test to stop')
 
         try:
-            with open('output1.wav', 'rf') as f:
+            #with open('/home/pi/output1.wav', 'rf') as f:
+            with open('/home/pi/output1.wav', 'rf') as f:
                 answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
             text = unidecode(answ[u'text'])
+            #print ('Text recognized')
         except:
             text=""
+            #print ('Error opening audio file')
         print(text)
         self.asr_msg.data = text
         #Publish msg
