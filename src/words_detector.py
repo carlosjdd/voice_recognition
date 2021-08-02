@@ -96,6 +96,7 @@ class detector():
     def detect_word(self, phrase):
         robot_named = False
         self.word_detected.data_string = ""
+        print ('[PREVIOUS]: ' + self.last_detected)
         for i in range(len(self.word)):
             if robot_named == False:
                 for j in self.word[i]:
@@ -107,7 +108,7 @@ class detector():
                         self.last_detected = j
                         if i == 0:
                             robot_named = True
-                        print("[DETECTED]: " + j + '\n[PREVIOUS]: ' + self.last_detected)
+                        print("[DETECTED]: " + j)
 
         if self.word_detected.data_string != "":
             self.last_detected = ""
