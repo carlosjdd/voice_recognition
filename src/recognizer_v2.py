@@ -71,12 +71,12 @@ class voice_recognitor():
             self.listening_pub.publish(self.listening_msg)
 
             try:
-                answ = self.r.recognize_google(audio, language="es-ES")
+                text = self.r.recognize_google(audio, language="es-ES")
 
             except:
                 text=""
 
-            text = unidecode(answ[u'text'])
+            #text = unidecode(answ[u'text'])
 
         print(text)
         self.asr_msg.data = text
