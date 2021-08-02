@@ -65,7 +65,7 @@ class voice_recognitor1():
                 answ = ""
                 text = ""
 
-            if answ == "":
+            if answ != "":
                 text = unidecode(answ)
 
             #text = unidecode(answ[u'text'])

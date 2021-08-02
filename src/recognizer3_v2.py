@@ -66,7 +66,7 @@ class voice_recognitor3():
                 answ = ""
                 text=""
 
-            if answ == "":
+            if answ != "":
                 text = unidecode(answ)
 
         print(text)
