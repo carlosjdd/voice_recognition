@@ -59,12 +59,14 @@ class voice_recognitor4():
             audio = self.r.listen(source, phrase_time_limit=int(duration))
 
             try:
-                text = self.r.recognize_google(audio, language="es-ES")
+                answ = self.r.recognize_google(audio, language="es-ES")
 
             except:
+                answ = ""
                 text=""
 
-            #text = unidecode(answ[u'text'])
+            if answ == "":
+                text = unidecode(answ)
 
         print(text)
         self.asr_msg.data = text
