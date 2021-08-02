@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
 <launch>
-	<node pkg="voice_recognition" name="recognizer" type="recognizer.py" respawn="true" />
-	<node pkg="voice_recognition" name="recognizer1" type="recognizer1_v2.py" respawn="true" output="screen"/>
-	<node pkg="voice_recognition" name="recognizer2" type="recognizer2.py" respawn="true" />
-	<node pkg="voice_recognition" name="recognizer3" type="recognizer3.py" respawn="true" />
-	<node pkg="voice_recognition" name="recognizer4" type="recognizer4.py" respawn="true" />
+	<node pkg="voice_recognition" name="recognizer" type="recognizer_v2.py" respawn="true" />
+	<node pkg="voice_recognition" name="recognizer1" type="recognizer1_v2.py" respawn="true" />
+	<node pkg="voice_recognition" name="recognizer2" type="recognizer2_v2.py" respawn="true" />
+	<node pkg="voice_recognition" name="recognizer3" type="recognizer3_v2.py" respawn="true" />
+	<node pkg="voice_recognition" name="recognizer4" type="recognizer4_v2.py" respawn="true" />
 	<node pkg="voice_recognition" name="listener" type="permanent_listener.py" />
 	<node pkg="voice_recognition" name="detector" type="words_detector.py" output="screen" launch-prefix="xterm -e"/>
 	<node pkg="voice_recognition" name="long_time_words_detector" type="long_recognizer.py" output="screen" />

@@ -2,7 +2,6 @@
 
 # import the necessary packages
 import rospy
-import time
 import speech_recognition as sr
 
 #from unidecode import unidecode

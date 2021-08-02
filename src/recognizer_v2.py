@@ -9,8 +9,9 @@ import speech_recognition as sr
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import Float32
 from std_msgs.msg import String
+from std_msgs.msg import Bool
 
-class voice_recognitor4():
+class voice_recognitor():
     """ Class voice_recognitor
 
     This class allows to recognite the voice during an indicated time in seconds.
@@ -25,14 +26,18 @@ class voice_recognitor4():
         """
 
         #Subscribe to ROS topics
-        self.asr_sub = rospy.Subscriber("recognize_voice4", Float32, self.callback)
+        self.asr_sub = rospy.Subscriber("recognize_voice", Float32, self.callback)
 
         #Define the ROS publishers
-        self.asr_pub = rospy.Publisher("asr_text", String, queue_size=0)
+        self.asr_pub = rospy.Publisher("asr_full_text", String, queue_size=0)
+        self.listening_pub = rospy.Publisher("listening", Bool, queue_size=0)
 
         #Define object as msg type
         self.asr_msg = String()
         self.asr_msg.data = ""
+
+        self.listening_msg = Bool()
+        self.listening_msg.data = False
 
         self.duration=3.0
 
@@ -49,14 +54,21 @@ class voice_recognitor4():
         self.r = sr.Recognizer()
         self.mic = sr.Microphone(device_index=0)
 
+
+
     def recognize(self,duration):
         """Void to recognize voice
 
         First, the voice is recorded with the duration time set.
         After that, the text is recognized and published.
         """
+        self.listening_msg.data = True
+        self.listening_pub.publish(self.listening_msg)
         with self.mic as source:
             audio = self.r.listen(source, phrase_time_limit=int(duration))
+
+            self.listening_msg.data = False
+            self.listening_pub.publish(self.listening_msg)
 
             try:
                 text = self.r.recognize_google(audio, language="es-ES")
@@ -102,9 +114,9 @@ if __name__=='__main__':
 
     """
     try:
-        rospy.init_node('asr_node4')       # Init ROS node
+        rospy.init_node('asr_node')       # Init ROS node
 
-        asr_object = voice_recognitor4()
+        asr_object = voice_recognitor()
         rospy.on_shutdown(asr_object.stopping_node)   #When ROS is closed, this void is executed
 
         asr_object.run_loop()

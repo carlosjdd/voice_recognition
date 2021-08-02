@@ -2,11 +2,9 @@
 
 # import the necessary packages
 import rospy
-from wit import Wit
+import speech_recognition as sr
 
-from unidecode import unidecode
-import sounddevice as sd
-from scipy.io.wavfile import write
+#from unidecode import unidecode
 
 # import the necessary msgs. Example with msg type String_Int_Arrays:
 from std_msgs.msg import Float32
@@ -48,10 +46,8 @@ class voice_recognitor3():
         In this void the token of the wit.ai client is defined.
         And it is set the sample_rate of the text recorded.
         """
-        token="VW6CLYS2BCPOCWSATWXNZNVTLSEH3WJM"
-        self.client = Wit(token)
-
-        self.sample_rate=16000
+        self.r = sr.Recognizer()
+        self.mic = sr.Microphone(device_index=0)
 
 
     def recognize(self,duration):
@@ -60,16 +56,14 @@ class voice_recognitor3():
         First, the voice is recorded with the duration time set.
         After that, the text is recognized and published.
         """
-        myrecording = sd.rec(int(duration*self.sample_rate), samplerate=self.sample_rate, channels=2)
-        sd.wait()
-        write('/home/pi/output3.wav', self.sample_rate, myrecording)
+        with self.mic as source:
+            audio = self.r.listen(source, phrase_time_limit=int(duration))
 
-        try:
-            with open('/home/pi/output3.wav', 'rf') as f:
-                answ=self.client.speech(f, {'Content-Type': 'audio/wav'})
-            text = unidecode(answ[u'text'])
-        except:
-            text=""
+            try:
+                text = self.r.recognize_google(audio, language="es-ES")
+            except:
+                text=""
+
         print(text)
         self.asr_msg.data = text
         #Publish msg
