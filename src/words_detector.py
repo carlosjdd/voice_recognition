@@ -107,7 +107,7 @@ class detector():
                         self.last_detected = j
                         if i == 0:
                             robot_named = True
-                        print("[DETECTED]: " + j)
+                        print("[DETECTED]: " + j + '\n[PREVIOUS]: ' + self.last_detected)
 
         if self.word_detected.data_string != "":
             self.last_detected = ""
