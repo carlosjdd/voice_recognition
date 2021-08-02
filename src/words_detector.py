@@ -110,7 +110,7 @@ class detector():
                             robot_named = True
                         print("[DETECTED]: " + j)
 
-        if self.word_detected.data_string != "":
+        if self.word_detected.data_string == "":
             self.last_detected = ""
 
     def run_loop(self):
